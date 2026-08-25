@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레노스블랑쉬 오시는 길</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #FAF8F5;
+      --text: #3A3028;
+      --sub: #9A8A80;
+      --accent: #B08272;
+      --accent-light: #F2E8E3;
+      --border: #EAE0D8;
+      --card-dark: #6A4E43;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header {
+      text-align: center;
+      padding: 52px 24px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-date {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--sub);
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+    }
+    .header-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--sub);
+      letter-spacing: 0.06em;
+    }
+
+    /* Full-width underline tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 15px 0 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #C4B8B0;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      user-select: none;
+      letter-spacing: 0.02em;
+    }
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .content { padding: 28px 20px 60px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .alert {
+      border-left: 2px solid var(--accent);
+      padding: 2px 0 2px 16px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+
+    .map-section { margin-bottom: 36px; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #C4B8B0;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    .steps { display: flex; flex-direction: column; }
+    .step { display: flex; gap: 16px; }
+    .step-aside {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-line {
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+      margin: 6px 0;
+      min-height: 12px;
+    }
+    .step:last-child .step-line { display: none; }
+    .step-body { padding-bottom: 26px; flex: 1; min-width: 0; }
+    .step-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      padding-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--sub);
+      border: 1px solid var(--border);
+      padding: 2px 9px;
+      border-radius: 3px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: #7A6A60;
+      line-height: 1.9;
+    }
+    .step-tip {
+      margin-top: 10px;
+      border-left: 2px solid var(--border);
+      padding: 2px 0 2px 12px;
+      font-size: 13.5px;
+      color: var(--sub);
+      line-height: 1.85;
+    }
+
+    .arrival {
+      background: var(--card-dark);
+      color: white;
+      border-radius: 8px;
+      padding: 22px;
+      text-align: center;
+    }
+    .arrival-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .arrival-info {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.02em;
+    }
+
+    .info-block { margin-bottom: 4px; }
+    .info-block-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .info-block-desc {
+      font-size: 14px;
+      color: #7A6A60;
+      line-height: 1.9;
+    }
+
+    .map-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .map-btn {
+      display: block;
+      text-align: center;
+      padding: 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .map-btn:active { opacity: 0.8; }
+    .map-btn-kakao {
+      background: #FEE500;
+      color: #191600;
+    }
+    .map-btn-naver {
+      background: #03C75A;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-date">2026 · 11 · 21  SAT  PM 6:00</div>
+    <div class="header-title">레노스블랑쉬</div>
+    <div class="header-sub">오시는 길 안내</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('transit')">대중교통</div>
+    <div class="tab" onclick="switchTab('car')">자차</div>
+  </div>
+
+  <div class="content">
+
+    <!-- 대중교통 -->
+    <div class="panel active" id="transit">
+
+      <div class="alert">
+        역 내 이동(약 4분)을 포함해 홀까지 <strong>약 15분</strong> 소요됩니다. 예식이 짧게 진행되오니 시간 여유를 두고 와 주세요.
+      </div>
+
+      <div class="map-section">
+        <div class="section-label">경로 약도</div>
+        <img src="route-map.jpeg" alt="왕십리역 9번 출구 → 레노스블랑쉬 경로" style="width:100%;border-radius:12px;display:block;">
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-aside"><div class="step-num">1</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <div class="step-title">왕십리역 도착</div>
+            <div class="step-desc">2호선 · 5호선 · 경의중앙선 · 수인분당선</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-aside"><div class="step-num">2</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <div class="step-title">9번 출구로 이동 <span class="badge">약 4분</span></div>
+            <div class="step-desc">왕십리역은 출구가 13개로 내부가 넓고 복잡합니다. 역 내 안내 표지판을 따라 9번 출구를 찾아오세요.</div>
+            <div class="step-tip">다른 출구로 나오셨더라도 괜찮습니다. 가까운 출구로 나오신 후 9번 출구 방향으로 걸어오시면 됩니다.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-aside"><div class="step-num">3</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <div class="step-title">출구 나와 직진 <span class="badge">약 7분</span></div>
+            <div class="step-desc">9번 출구로 나와 앞 방향으로 계속 직진합니다.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-aside"><div class="step-num">4</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <div class="step-title">KT 건물 확인</div>
+            <div class="step-desc">KT 행당지점 건물이 보이면 잘 오고 계신 겁니다. KT 건물을 지나 한 블럭 더 직진해 주세요.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-aside"><div class="step-num">5</div><div class="step-line"></div></div>
+          <div class="step-body">
+            <div class="arrival">
+              <div class="arrival-name">레노스블랑쉬 도착</div>
+              <div class="arrival-info">2026 · 11 · 21 (토) 오후 6시</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="map-btns">
+        <a href="https://map.kakao.com/link/search/%EB%A0%88%EB%85%B8%EC%8A%A4%EB%B8%94%EB%9E%91%EC%89%AC%EC%9B%A8%EB%94%A9%ED%99%80" class="map-btn map-btn-kakao" target="_blank">카카오맵으로 길찾기</a>
+        <a href="https://map.naver.com/v5/search/%EB%A0%88%EB%85%B8%EC%8A%A4%EB%B8%94%EB%9E%91%EC%89%AC%EC%9B%A8%EB%94%A9%ED%99%80" class="map-btn map-btn-naver" target="_blank">네이버맵으로 길찾기</a>
+      </div>
+
+    </div>
+
+    <!-- 자차 -->
+    <div class="panel" id="car">
+
+      <div class="alert">
+        주차 공간이 협소하오니 <strong>되도록 대중교통 이용</strong>을 부탁드립니다. 부득이하게 자차를 이용하시는 경우 아래 주차장을 이용해 주세요.
+      </div>
+
+      <div class="map-section">
+        <div class="section-label">주차장 위치 약도</div>
+        <svg viewBox="0 0 320 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+          <!-- Background -->
+          <rect width="320" height="210" fill="#F5EEE8" rx="8"/>
+
+          <!-- Left road -->
+          <rect x="0" y="0" width="30" height="210" fill="#DDD4CA"/>
+          <line x1="15" y1="0" x2="15" y2="210" stroke="white" stroke-width="1.5" stroke-dasharray="10,7" opacity="0.5"/>
+          <text x="15" y="108" text-anchor="middle" fill="#B0A098" font-size="9" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif" transform="rotate(-90 15 108)">큰 도로</text>
+
+          <!-- KT 행당지점 (상단) -->
+          <rect x="34" y="12" width="278" height="64" rx="6" fill="#E2D8D0" stroke="#D2C8C0" stroke-width="1"/>
+          <text x="173" y="42" text-anchor="middle" fill="#5A3E34" font-size="14" font-weight="500" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif">KT 행당지점</text>
+          <text x="173" y="62" text-anchor="middle" fill="#8A7A70" font-size="11" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif">이 건물이 보이면 진입로를 찾으세요</text>
+
+          <!-- 골목 / 진입로 -->
+          <rect x="34" y="80" width="278" height="28" fill="#EDE4DC"/>
+          <line x1="34" y1="94" x2="312" y2="94" stroke="white" stroke-width="1" stroke-dasharray="10,8" opacity="0.45"/>
+          <text x="48" y="99" fill="#B08272" font-size="11" font-weight="500" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif">→  이 길로 진입</text>
+
+          <!-- 레노스블랑쉬 -->
+          <rect x="34" y="112" width="144" height="84" rx="6" fill="#6A4E43"/>
+          <text x="106" y="149" text-anchor="middle" fill="white" font-size="13" font-weight="600" font-family="Noto Serif KR,serif">레노스블랑쉬</text>
+          <text x="106" y="168" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif">웨딩홀</text>
+
+          <!-- 주차장 -->
+          <rect x="184" y="112" width="128" height="84" rx="6" fill="white" stroke="#D4B8A8" stroke-width="1.5"/>
+          <text x="248" y="153" text-anchor="middle" fill="#B08272" font-size="30" font-weight="700" font-family="Arial,Helvetica,sans-serif">P</text>
+          <text x="248" y="173" text-anchor="middle" fill="#A09080" font-size="10" font-family="Noto Sans KR,Apple SD Gothic Neo,sans-serif">주차장 (지상 · 2층)</text>
+        </svg>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-title">레노스블랑쉬 뒤편 주차장</div>
+        <div class="info-block-desc">
+          KT 행당지점과 레노스블랑쉬 사이 골목으로 진입하시면 건물 오른편에 주차장이 있습니다. 지상 주차 및 2층 주차 건물 이용 가능합니다. (2층 주차 건물은 경사가 높아 이용에 불편함이 있을 수 있습니다)
+        </div>
+      </div>
+
+      <div class="map-btns">
+        <a href="https://map.kakao.com/link/search/%EB%A0%88%EB%85%B8%EC%8A%A4%EB%B8%94%EB%9E%91%EC%89%AC%EC%9B%A8%EB%94%A9%ED%99%80" class="map-btn map-btn-kakao" target="_blank">카카오맵으로 길찾기</a>
+        <a href="https://map.naver.com/v5/search/%EB%A0%88%EB%85%B8%EC%8A%A4%EB%B8%94%EB%9E%91%EC%89%AC%EC%9B%A8%EB%94%A9%ED%99%80" class="map-btn map-btn-naver" target="_blank">네이버맵으로 길찾기</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(id) {
+      document.querySelectorAll('.tab').forEach((el, i) => {
+        el.classList.toggle('active', (id === 'transit' && i === 0) || (id === 'car' && i === 1));
+      });
+      document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
