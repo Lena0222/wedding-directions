@@ -222,6 +222,106 @@
       background: #03C75A;
       color: white;
     }
+
+    /* ── 마음 전하실 곳 ── */
+    .gift-section {
+      border-top: 1px solid var(--border);
+      padding: 40px 20px 56px;
+    }
+
+    .gift-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .gift-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .gift-desc {
+      font-size: 14px;
+      color: var(--sub);
+      line-height: 2;
+    }
+
+    .gift-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 14px;
+      background: white;
+    }
+
+    .gift-card:last-child { margin-bottom: 0; }
+
+    .gift-side {
+      font-size: 16px;
+      font-weight: 500;
+      color: #7A9665;
+      margin-bottom: 12px;
+    }
+
+    .gift-person {
+      font-size: 14px;
+      color: var(--sub);
+      margin-bottom: 12px;
+    }
+
+    .gift-person .gift-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-left: 6px;
+    }
+
+    .gift-account {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: #F2EDE8;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gift-account:active { background: #E8E0D8; }
+
+    .gift-account .copy-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      color: var(--sub);
+      transition: color 0.2s;
+    }
+
+    .gift-account.copied {
+      background: #EAF2E6;
+    }
+
+    .gift-account.copied .copy-icon {
+      color: #7A9665;
+    }
+
+    .copy-feedback {
+      font-size: 12px;
+      color: #7A9665;
+      text-align: center;
+      margin-top: 8px;
+      height: 18px;
+      transition: opacity 0.2s;
+    }
   </style>
 </head>
 <body>
@@ -361,6 +461,42 @@
 
   </div>
 
+  <!-- ── 마음 전하실 곳 ── -->
+  <div class="gift-section">
+
+    <div class="gift-header">
+      <div class="gift-title">마음 전하실 곳</div>
+      <div class="gift-desc">전해주시는 따뜻한 축하의 마음을<br>오래도록 간직하며<br>행복한 모습으로 보답하며 살겠습니다.</div>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-side">신랑 측</div>
+      <div class="gift-person">신랑 <span class="gift-name">차재원</span></div>
+      <button class="gift-account" id="acc-groom" onclick="copyAccount('acc-groom', '110390423290', '신한은행 110390423290')">
+        <span>신한은행 110390423290</span>
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </button>
+      <div class="copy-feedback" id="fb-groom"></div>
+    </div>
+
+    <div class="gift-card">
+      <div class="gift-side">신부 측</div>
+      <div class="gift-person">신부 <span class="gift-name">김지현</span></div>
+      <button class="gift-account" id="acc-bride" onclick="copyAccount('acc-bride', '3510603512643', 'NH농협 3510603512643')">
+        <span>NH농협 3510603512643</span>
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </button>
+      <div class="copy-feedback" id="fb-bride"></div>
+    </div>
+
+  </div>
+
   <script>
     function switchTab(id) {
       document.querySelectorAll('.tab').forEach((el, i) => {
@@ -368,6 +504,19 @@
       });
       document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+    }
+
+    function copyAccount(btnId, number, label) {
+      navigator.clipboard.writeText(number).then(() => {
+        const btn = document.getElementById(btnId);
+        const fb = document.getElementById('fb-' + btnId.split('-')[1]);
+        btn.classList.add('copied');
+        if (fb) fb.textContent = '클립보드에 복사되었습니다';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          if (fb) fb.textContent = '';
+        }, 2000);
+      });
     }
   </script>
 
